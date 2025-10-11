@@ -22,7 +22,7 @@ enum class Genre {
     RELIGION,
     ROMANCE,
     SCIENCE,
-    SCIENCE_FICTION,
+    SCIFI,
     SPORTS,
     SUPERNATURAL,
     TALES_MYTHOLOGY,

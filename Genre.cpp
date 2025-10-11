@@ -26,7 +26,7 @@ std::string genreToString(Genre g) {
 	case Genre::HUMOUR:
 		return "Humour";
 	case Genre::MYSTERY:
-		return "Myster";
+		return "Mystery";
 	case Genre::NOIR:
 		return "Noir";
 	case Genre::PHILOSOPHY:
@@ -41,7 +41,7 @@ std::string genreToString(Genre g) {
 		return "Romance";
 	case Genre::SCIENCE:
 		return "Science";
-	case Genre::SCIENCE_FICTION:
+	case Genre::SCIFI:
 		return "Science Fiction";
 	case Genre::SPORTS:
 		return "Sports";

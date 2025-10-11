@@ -9,7 +9,7 @@
 // CONSTRUCTORS
 // 
 
-Book::Book(std::string isbn, std::string title, std::set<std::string> authors, std::set<Genre> genres, bool available) {
+Book::Book(std::string &isbn, std::string &title, std::set<std::string> &authors, std::set<Genre> &genres, bool available) {
 	this->setIsbn(isbn);
 	this->setTitle(title);
 	this->setAuthors(authors);
@@ -17,10 +17,7 @@ Book::Book(std::string isbn, std::string title, std::set<std::string> authors, s
 	this->setAvailable(available);
 }
 
-Book::Book(const Book& other) {
-
-}
-
+Book::Book(const Book& other) {}
 Book::~Book() {}
 
 // 
@@ -106,6 +103,6 @@ bool Book::operator!() const {
 	return !this->available;
 }
 
-std::ostream &::operator<<(std::ostream &os, const Book &b) {
+std::ostream &operator<<(std::ostream &os, const Book &b) {
 	return (os << b.toString());
 }

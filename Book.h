@@ -16,7 +16,6 @@ public:
 	// Constructors
 	Book(std::string &isbn, std::string &title, std::set<std::string> &authors, std::set<Genre> &genres, bool available);
 	Book(const Book &other);
-	Book();
 	~Book();
 
 	// Getters
