@@ -30,4 +30,4 @@ enum class Genre {
     WAR_MILITARY
 };
 
-std::string toString(Genre g);
+std::string genreToString(Genre g);

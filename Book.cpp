@@ -1,7 +1,9 @@
 #include "Book.h"
+#include "Genre.h"
 
 #include <string>
 #include <set>
+#include <ostream>
 
 // 
 // CONSTRUCTORS
@@ -37,25 +39,55 @@ bool Book::isAvailable() const { return this->available; }
 
 // NOTE: consider where and whether to use const and references in setter params
 
-void Book::setIsbn(std::string isbn) {
+void Book::setIsbn(std::string &isbn) {
 	// --> PERFORM ISBN VALIDITY CHECK HERE <--
 	this->isbn = isbn;
 }
 
-void Book::setTitle(std::string title) {
+void Book::setTitle(std::string &title) {
 	this->title = title;
 }
 
-void Book::setAuthors(std::set<std::string> authors) {
+void Book::setAuthors(std::set<std::string> &authors) {
 	this->authors = authors;
 }
 
-void Book::setGenres(std::set<Genre> genres) {
+void Book::setGenres(std::set<Genre> &genres) {
 	this->genres = genres;
 }
 
 void Book::setAvailable(bool available) {
 	this->available = available;
+}
+
+// 
+// OTHER METHODS
+// 
+
+std::string Book::toString() const {
+	std::string authorsStr = "Authors: ";
+	std::string genresStr = "Genres: ";
+	std::string availableStr = (this->available)? "yes" : "no";
+
+	// Authors string
+	std::set<std::string>::iterator ita;
+	for (ita = this->authors.begin(); ita != this->authors.end(); ita++) {
+		authorsStr += (*ita) + ", ";
+	}
+	authorsStr.resize(authorsStr.size() - 2);
+
+	// Genres string
+	std::set<Genre>::iterator itg;
+	for (itg = this->genres.begin(); itg != this->genres.end(); itg++) {
+		authorsStr += genreToString(*itg) + ", ";
+	}
+	authorsStr.resize(authorsStr.size() - 2);
+
+	return "ISBN: " + this->isbn + "\n" +
+		   "Title: " + this->title + "\n" +
+		   authorsStr + "\n" +
+		   genresStr + "\n" +
+		   availableStr + "\n";
 }
 
 // 
@@ -72,4 +104,8 @@ bool Book::operator||(const Book& other) const {
 
 bool Book::operator!() const {
 	return !this->available;
+}
+
+std::ostream &::operator<<(std::ostream &os, const Book &b) {
+	return (os << b.toString());
 }
