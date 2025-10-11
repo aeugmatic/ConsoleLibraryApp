@@ -37,8 +37,6 @@ public:
 
 
     // Operator overloads
-    bool operator==(const Book& other) const;
-    bool operator!=(const Book& other) const; 
     bool operator&&(const Book& other) const;   // Works on availability
     bool operator||(const Book& other) const;   // Works on availability
     bool operator!() const;                     // Works on availability
