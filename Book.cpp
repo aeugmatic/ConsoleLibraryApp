@@ -61,30 +61,47 @@ void Book::setAvailable(bool available) {
 // OTHER METHODS
 // 
 
-std::string Book::toString() const {
-	std::string authorsStr = "Authors: ";
-	std::string genresStr = "Genres: ";
-	std::string availableStr = (this->available)? "yes" : "no";
-
-	// Authors string
+std::string Book::authorsToString() const {
+	std::string authorsStr = "";
 	std::set<std::string>::iterator ita;
 	for (ita = this->authors.begin(); ita != this->authors.end(); ita++) {
-		authorsStr += (*ita) + ", ";
+		authorsStr += (*ita) + ",";
 	}
 	authorsStr.resize(authorsStr.size() - 2);
 
-	// Genres string
-	std::set<Genre>::iterator itg;
-	for (itg = this->genres.begin(); itg != this->genres.end(); itg++) {
-		authorsStr += genreToString(*itg) + ", ";
-	}
-	authorsStr.resize(authorsStr.size() - 2);
+	return authorsStr;
+}
 
+std::string Book::genresToString() const {
+	std::string genresStr = "";
+	std::set<std::string>::iterator ita;
+	for (ita = this->authors.begin(); ita != this->authors.end(); ita++) {
+		genresStr += (*ita) + ",";
+	}
+	genresStr.resize(genresStr.size() - 2);
+
+	return genresStr;
+}
+
+std::string Book::toString() const {
 	return "ISBN: " + this->isbn + "\n" +
 		   "Title: " + this->title + "\n" +
-		   authorsStr + "\n" +
-		   genresStr + "\n" +
-		   availableStr + "\n";
+		   "Authors: " + this->authorsToString() + "\n" +
+		   "Genres: " + this->genresToString() + "\n" +
+		   "Available?: " + ((this->available)? "yes" : "no") + "\n";
+}
+
+std::string Book::createInsertQuery() const {
+	std::string result = "INSERT INTO books (isbn, title, authors, genres)";
+
+	result += "\"" + this->getIsbn() + "\", \"";
+	result += this->getTitle() + "\", \"";
+	result += this->authorsToString() + "\", \"";
+	result += this->genresToString() + "\", \"";
+	result += ((this->available)? "1" : "0");
+	result += ");";
+
+	return result;
 }
 
 // 

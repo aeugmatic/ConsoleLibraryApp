@@ -7,11 +7,14 @@
 
 class Library {
 private:
+	// Attributes
 	SQLite::Database bookDb;
+
+	// Methods
+	void setupDb();
 public:
 	// Constructors
 	Library(std::set<Book> books);
-	Library(const Library &other);
 	Library();
 	~Library();
 	
@@ -19,7 +22,7 @@ public:
 	void addBook(Book newBook);
 	void addBooks(std::set<Book> newBooks);
 
-	Book getBook(std::string isbn);
+	Book *getBook(std::string isbn);
 	std::set<Book> searchTitle(std::string title);
 	std::set<Book> searchAuthors(std::set<std::string> authors);
 	std::set<Book> searchGenres(std::set<Genre> genres);
