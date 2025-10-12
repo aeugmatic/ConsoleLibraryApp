@@ -9,7 +9,7 @@
 // CONSTRUCTORS
 // 
 
-Book::Book(std::string &isbn, std::string &title, std::set<std::string> &authors, std::set<Genre> &genres, bool available) {
+Book::Book(std::string isbn, std::string title, std::set<std::string> authors, std::set<Genre> genres, bool available) {
 	this->setIsbn(isbn);
 	this->setTitle(title);
 	this->setAuthors(authors);
@@ -17,7 +17,7 @@ Book::Book(std::string &isbn, std::string &title, std::set<std::string> &authors
 	this->setAvailable(available);
 }
 
-Book::Book(const Book& other) {}
+Book::Book(const Book &other) {}
 Book::~Book() {}
 
 // 
@@ -36,20 +36,20 @@ bool Book::isAvailable() const { return this->available; }
 
 // NOTE: consider where and whether to use const and references in setter params
 
-void Book::setIsbn(std::string &isbn) {
+void Book::setIsbn(std::string isbn) {
 	// --> PERFORM ISBN VALIDITY CHECK HERE <--
 	this->isbn = isbn;
 }
 
-void Book::setTitle(std::string &title) {
+void Book::setTitle(std::string title) {
 	this->title = title;
 }
 
-void Book::setAuthors(std::set<std::string> &authors) {
+void Book::setAuthors(std::set<std::string> authors) {
 	this->authors = authors;
 }
 
-void Book::setGenres(std::set<Genre> &genres) {
+void Book::setGenres(std::set<Genre> genres) {
 	this->genres = genres;
 }
 

@@ -14,7 +14,7 @@ private:
 	bool available;
 public:
 	// Constructors
-	Book(std::string &isbn, std::string &title, std::set<std::string> &authors, std::set<Genre> &genres, bool available);
+	Book(std::string isbn, std::string title, std::set<std::string> authors, std::set<Genre> genres, bool available);
 	Book(const Book &other);
 	~Book();
 
@@ -26,10 +26,10 @@ public:
 	bool isAvailable() const;
 
 	// Setters
-	void setIsbn(std::string &isbn);
-	void setTitle(std::string &title);
-	void setAuthors(std::set<std::string> &authors);
-	void setGenres(std::set<Genre> &genres);
+	void setIsbn(std::string isbn);
+	void setTitle(std::string title);
+	void setAuthors(std::set<std::string> authors);
+	void setGenres(std::set<Genre> genres);
 	void setAvailable(bool available);
 
 	// Other methods
