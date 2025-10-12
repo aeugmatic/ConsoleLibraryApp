@@ -10,18 +10,21 @@ private:
 	SQLite::Database bookDb;
 public:
 	// Constructors
-	Library(SQLite::Database bookDb);
+	Library(std::set<Book> books);
+	Library(const Library &other);
 	Library();
+	~Library();
 	
 	// Other methods
 	void addBook(Book newBook);
+	void addBooks(std::set<Book> newBooks);
 
 	Book getBook(std::string isbn);
 	std::set<Book> searchTitle(std::string title);
 	std::set<Book> searchAuthors(std::set<std::string> authors);
 	std::set<Book> searchGenres(std::set<Genre> genres);
 
-	Book updateBook(std::string isbn, Book updated);
+	Book updateBook(std::string isbn, Book newBook);
 
 	Book removeBook(std::string isbn);
 };
