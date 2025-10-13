@@ -15,6 +15,7 @@ private:
 public:
 	// Constructors
 	Library(std::set<Book> books);
+	Library(const Library &other);
 	Library();
 	~Library();
 	

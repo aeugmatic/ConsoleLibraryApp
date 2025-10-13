@@ -2,19 +2,24 @@
 #include "Book.h"
 #include "Genre.h"
 #include <set>
+#include <sqlite3.h>
 #include <SQLiteCpp/SQLiteCpp.h>
 
 // 
 // CONSTRUCTORS
 // 
 
-Library::Library(std::set<Book> books) : bookDb("books.db", SQLite::OPEN_READWRITE | SQLite::OPEN_CREATE) {
+Library::Library(std::set<Book> books) : bookDb("books.db", SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE) {
 	this->setupDb();
 	this->addBooks(books); // Populate table (idk if the database inherently takes care of duplicates)
 }
 
-Library::Library() : bookDb("books.db", SQLite::OPEN_READWRITE | SQLite::OPEN_CREATE) {
+Library::Library() : bookDb("books.db", SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE) {
 	this->setupDb();
+}
+
+Library::Library(const Library &other) : bookDb("books.db", SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE) {
+
 }
 
 Library::~Library() {}
@@ -69,23 +74,31 @@ Book *Library::getBook(std::string isbn) {
 }
 
 std::set<Book> Library::searchTitle(std::string title) {
+	std::string authorStr;
+	SQLite::Statement query(this->bookDb, "SELECT * FROM books WHERE isbn=\"" + authorStr + "\"");
 
+	std::set<Book> s;
+	return s;
 }
 
 std::set<Book> Library::searchAuthors(std::set<std::string> authors) {
-
+	std::set<Book> s;
+	return s;
 }
 
 std::set<Book> Library::searchGenres(std::set<Genre> genres) {
-
+	std::set<Book> s;
+	return s;
 }
 
 // Update
 Book Library::updateBook(std::string isbn, Book newBook) {
-
+	std::string a, b;
+	return Book(a, b, {}, {}, true);
 }
 
 // Delete
 Book Library::removeBook(std::string isbn) {
-
+	std::string a, b;
+	return Book(a, b, {}, {}, true);
 }
