@@ -42,6 +42,7 @@ public:
 	bool operator&&(const Book &other) const;   // Works on availability
 	bool operator||(const Book &other) const;   // Works on availability
 	bool operator!() const;                     // Works on availability
+	bool operator<(const Book &other) const;    // For std::set
 };
 
 std::ostream &operator<<(std::ostream &os, const Book &b);

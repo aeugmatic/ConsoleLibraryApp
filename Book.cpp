@@ -108,16 +108,20 @@ std::string Book::createInsertQuery() const {
 // OPERATOR OVERLOADS
 // 
 
-bool Book::operator&&(const Book& other) const {
+bool Book::operator&&(const Book &other) const {
 	return this->available && other.isAvailable();
 }
 
-bool Book::operator||(const Book& other) const {
+bool Book::operator||(const Book &other) const {
 	return this->available || other.isAvailable();
 }
 
 bool Book::operator!() const {
 	return !this->available;
+}
+
+bool Book::operator<(const Book &other) const {
+	return this->isbn < other.getIsbn();
 }
 
 std::ostream &operator<<(std::ostream &os, const Book &b) {

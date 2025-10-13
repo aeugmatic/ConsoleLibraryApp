@@ -74,8 +74,7 @@ Book *Library::getBook(std::string isbn) {
 }
 
 std::set<Book> Library::searchTitle(std::string title) {
-	std::string authorStr;
-	SQLite::Statement query(this->bookDb, "SELECT * FROM books WHERE isbn=\"" + authorStr + "\"");
+	SQLite::Statement query(this->bookDb, "SELECT * FROM books WHERE title=\"" + title + "\"");
 
 	std::set<Book> s;
 	return s;
