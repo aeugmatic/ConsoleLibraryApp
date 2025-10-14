@@ -17,7 +17,14 @@ Book::Book(std::string isbn, std::string title, std::set<std::string> authors, s
 	this->setAvailable(available);
 }
 
-Book::Book(const Book &other) {}
+Book::Book(const Book &other) {
+	this->setIsbn(other.getIsbn());
+	this->setTitle(other.getTitle());
+	this->setAuthors(other.getAuthors());
+	this->setGenres(other.getGenres());
+	this->setAvailable(other.isAvailable());
+}
+
 Book::~Book() {}
 
 // 
@@ -63,22 +70,26 @@ void Book::setAvailable(bool available) {
 
 std::string Book::authorsToString() const {
 	std::string authorsStr = "";
-	std::set<std::string>::iterator ita;
-	for (ita = this->authors.begin(); ita != this->authors.end(); ita++) {
-		authorsStr += (*ita) + ",";
+	if (this->authors.size() > 0) {
+		std::set<std::string>::iterator ita;
+		for (ita = this->authors.begin(); ita != this->authors.end(); ita++) {
+			authorsStr += (*ita) + ",";
+		}
+		//authorsStr.resize(authorsStr.size() - 2);
 	}
-	authorsStr.resize(authorsStr.size() - 2);
 
 	return authorsStr;
 }
 
 std::string Book::genresToString() const {
 	std::string genresStr = "";
-	std::set<std::string>::iterator ita;
-	for (ita = this->authors.begin(); ita != this->authors.end(); ita++) {
-		genresStr += (*ita) + ",";
+	if (this->genres.size() > 0) {
+		std::set<Genre>::iterator itg;
+		for (itg = this->genres.begin(); itg != this->genres.end(); itg++) {
+			genresStr += genreToString(*itg) + ",";
+		}
+		//genresStr.resize(genresStr.size() - 2);
 	}
-	genresStr.resize(genresStr.size() - 2);
 
 	return genresStr;
 }
@@ -92,16 +103,17 @@ std::string Book::toString() const {
 }
 
 std::string Book::createInsertQuery() const {
-	std::string result = "INSERT INTO books (isbn, title, authors, genres)";
+	std::string result = "INSERT INTO books (isbn, title, authors, genres, available) VALUES (";
 
 	result += "\"" + this->getIsbn() + "\", \"";
 	result += this->getTitle() + "\", \"";
 	result += this->authorsToString() + "\", \"";
-	result += this->genresToString() + "\", \"";
+	result += this->genresToString() + "\", ";
 	result += ((this->available)? "1" : "0");
 	result += ");";
 
-	return result;
+	//return result;
+	return "INSERT INTO books (isbn, title, authors, genres, available ) VALUES (\"TEST\", \"TEST\", \"TEST\", \"TEST\", 1)";
 }
 
 // 

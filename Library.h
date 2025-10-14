@@ -31,4 +31,5 @@ public:
 	Book updateBook(std::string isbn, Book newBook);
 
 	Book removeBook(std::string isbn);
+	void clear();
 };

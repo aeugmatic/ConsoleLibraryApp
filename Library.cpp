@@ -37,20 +37,21 @@ void Library::setupDb() {
 		"title TEXT, "
 		"authors TEXT, "	// UNNORMALISED VER: desc. order comma-separated within text
 		"genres TEXT, "		// UNNORMALISED VER: desc. order comma-separated within text
-		"available BOOL)"
+		"available INTEGER)"
 	);
 }
 
 // Create
 void Library::addBook(Book newBook) {
 	this->bookDb.exec(newBook.createInsertQuery());
+	//this->bookDb.exec("INSERT INTO books (isbn, title, authors, genres, available ) VALUES (\"TEST\", \"TEST\", \"TEST\", \"TEST\", 1)");
 }
 
 void Library::addBooks(std::set<Book> newBooks) {
 	std::set<Book>::iterator iter;
 	for (iter = newBooks.begin(); iter != newBooks.end(); iter++) {
 		Book cur = *iter;
-		this->bookDb.exec(cur.createInsertQuery());
+		this->addBook(cur);
 	}
 }
 
@@ -100,4 +101,8 @@ Book Library::updateBook(std::string isbn, Book newBook) {
 Book Library::removeBook(std::string isbn) {
 	std::string a, b;
 	return Book(a, b, {}, {}, true);
+}
+
+void Library::clear() {
+	this->bookDb.exec("DELETE * FROM books;");
 }
