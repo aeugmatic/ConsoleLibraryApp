@@ -104,5 +104,5 @@ Book Library::removeBook(std::string isbn) {
 }
 
 void Library::clear() {
-	this->bookDb.exec("DELETE * FROM books;");
+	this->bookDb.exec("DELETE FROM books;");
 }
