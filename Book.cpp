@@ -78,7 +78,7 @@ std::string Book::authorsToString() const {
 		//authorsStr.resize(authorsStr.size() - 2);
 	}
 
-	return authorsStr;
+	return authorsStr.substr(0, authorsStr.size() - 1);
 }
 
 std::string Book::genresToString() const {
@@ -91,7 +91,7 @@ std::string Book::genresToString() const {
 		//genresStr.resize(genresStr.size() - 2);
 	}
 
-	return genresStr;
+	return genresStr.substr(0, genresStr.size() - 1);
 }
 
 std::string Book::toString() const {

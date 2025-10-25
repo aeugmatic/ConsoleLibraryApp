@@ -45,14 +45,18 @@ void Library::setupDb() {
 	);
 }
 
+// PRIVATE: create insert query for a book
 std::string Library::createInsertQuery(Book &book) const {
+	// Add "OR IGNORE" to avoid issues due to primary key uniqueness violation
 	std::string result =
-		"INSERT INTO books (isbn, title, authors, genres, available) VALUES ("
+		"INSERT OR IGNORE INTO books (isbn, title, authors, genres, available) VALUES ("
 		"'" + book.getIsbn() + "', "
 		"'" + book.getTitle() + "', "
 		"'" + book.authorsToString() + "', "
 		"'" + book.genresToString() + "', "
 		+ ((book.isAvailable())? "1" : "0") + ");";
+
+	std::cout << result << std::endl;
 
 	return result;
 }
