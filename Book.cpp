@@ -103,17 +103,15 @@ std::string Book::toString() const {
 }
 
 std::string Book::createInsertQuery() const {
-	std::string result = "INSERT INTO books (isbn, title, authors, genres, available) VALUES (";
+	std::string result =
+		"INSERT INTO books (isbn, title, authors, genres, available) VALUES ("
+		"'" + this->isbn + "', "
+		"'" + this->title + "', "
+		"'" + this->authorsToString() + "', "
+		"'" + this->genresToString() + "', "
+		+ ((this->available)? "1" : "0") + ");";
 
-	result += "\"" + this->getIsbn() + "\", \"";
-	result += this->getTitle() + "\", \"";
-	result += this->authorsToString() + "\", \"";
-	result += this->genresToString() + "\", ";
-	result += ((this->available)? "1" : "0");
-	result += ");";
-
-	//return result;
-	return "INSERT INTO books (isbn, title, authors, genres, available ) VALUES (\"TEST\", \"TEST\", \"TEST\", \"TEST\", 1)";
+	return result;
 }
 
 // 

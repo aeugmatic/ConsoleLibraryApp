@@ -5,6 +5,10 @@
 #include <sqlite3.h>
 #include <SQLiteCpp/SQLiteCpp.h>
 
+// TEMP
+#include <iostream>
+
+
 // 
 // CONSTRUCTORS
 // 
@@ -57,13 +61,14 @@ void Library::addBooks(std::set<Book> newBooks) {
 
 // Read
 Book *Library::getBook(std::string isbn) {
-	SQLite::Statement query(this->bookDb, "SELECT * FROM books WHERE isbn=\"" + isbn + "\"");
+	std::cout << "SELECT * FROM books WHERE isbn='" + isbn + "';" << std::endl;
+	SQLite::Statement query(this->bookDb, "SELECT * FROM books WHERE isbn=\"" + isbn + "\";");
 	
 	std::string resIsbn = query.getColumn(0).getString();
 	std::string resTitle = query.getColumn(1).getString();
-	std::set<std::string> resAuthors;
-	std::set<Genre> resGenre;
-	bool resAvailable = false;
+	std::set<std::string> resAuthors;	// <- FINISH
+	std::set<Genre> resGenre;			// <- FINISH
+	bool resAvailable = false;			// <- FINISH
 
 	return new Book(
 		resIsbn,
