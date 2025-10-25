@@ -45,9 +45,21 @@ void Library::setupDb() {
 	);
 }
 
+std::string Library::createInsertQuery(Book &book) const {
+	std::string result =
+		"INSERT INTO books (isbn, title, authors, genres, available) VALUES ("
+		"'" + book.getIsbn() + "', "
+		"'" + book.getTitle() + "', "
+		"'" + book.authorsToString() + "', "
+		"'" + book.genresToString() + "', "
+		+ ((book.isAvailable())? "1" : "0") + ");";
+
+	return result;
+}
+
 // Create
 void Library::addBook(Book newBook) {
-	this->bookDb.exec(newBook.createInsertQuery());
+	this->bookDb.exec(createInsertQuery(newBook));
 	//this->bookDb.exec("INSERT INTO books (isbn, title, authors, genres, available ) VALUES (\"TEST\", \"TEST\", \"TEST\", \"TEST\", 1)");
 }
 

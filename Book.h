@@ -36,7 +36,6 @@ public:
 	std::string authorsToString() const;
 	std::string genresToString() const;
 	std::string toString() const;
-	std::string createInsertQuery() const;
 
 	// Operator overloads
 	bool operator&&(const Book &other) const;   // Works on availability

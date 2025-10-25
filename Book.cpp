@@ -102,18 +102,6 @@ std::string Book::toString() const {
 		   "Available?: " + ((this->available)? "yes" : "no") + "\n";
 }
 
-std::string Book::createInsertQuery() const {
-	std::string result =
-		"INSERT INTO books (isbn, title, authors, genres, available) VALUES ("
-		"'" + this->isbn + "', "
-		"'" + this->title + "', "
-		"'" + this->authorsToString() + "', "
-		"'" + this->genresToString() + "', "
-		+ ((this->available)? "1" : "0") + ");";
-
-	return result;
-}
-
 // 
 // OPERATOR OVERLOADS
 // 

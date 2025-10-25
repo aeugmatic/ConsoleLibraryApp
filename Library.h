@@ -12,6 +12,7 @@ private:
 
 	// Methods
 	void setupDb();
+	std::string createInsertQuery(Book &book) const;
 public:
 	// Constructors
 	Library(std::set<Book> books);
