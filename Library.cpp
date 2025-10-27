@@ -73,7 +73,7 @@ std::string Library::createInsertQuery(Book &book) const {
 		"'" + book.genresToString() + "', "
 		+ ((book.isAvailable())? "1" : "0") + ");";
 
-	std::cout << result << std::endl;
+	//std::cout << result << std::endl;
 
 	return result;
 }
@@ -132,8 +132,13 @@ Book Library::getBook(std::string isbn) const {
 std::set<Book> Library::searchTitle(std::string text) const {
 	SQLite::Statement query(this->bookDb, "SELECT * FROM books WHERE title LIKE '%" + text + "%'");
 
-	std::set<Book> s;
-	return s;
+	std::set<Book> result;
+	while (query.executeStep()) {
+		Book b = rowToBook(query);
+		result.insert(b);
+	}
+
+	return result;
 }
 
 std::set<Book> Library::searchAuthors(std::set<std::string> authors) const {

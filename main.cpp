@@ -6,16 +6,20 @@
 #include "Genre.h"
 
 int main() {
-	Book b1("978-0-14-012499-6", "How to Solve It", { "George Polya" }, { Genre::SCIENCE }, true);
-	Book b2("978-0-19-872404-9", "Riddles of Existence", { "Earl Conee", "Theodore Sider" }, { Genre::PHILOSOPHY }, true);
-	Book b3("978-1-84413-239-3", "Man\'\'s Search for Meaning", { "Viktor Frankl" }, { Genre::PHILOSOPHY, Genre::PSYCHOLOGY }, true);
-	Book b4("978-1-4721-4717-2", "The Happiness Trap", { "Russ Harris" }, { Genre::PSYCHOLOGY }, true);
+	Book b1("9780140124996", "How to Solve It", { "George Polya" }, { Genre::SCIENCE }, true);
+	Book b2("9780198724049", "Riddles of Existence", { "Earl Conee", "Theodore Sider" }, { Genre::PHILOSOPHY }, true);
+	Book b3("9781844132393", "Man\'\'s Search for Meaning", { "Viktor Frankl" }, { Genre::PHILOSOPHY, Genre::PSYCHOLOGY }, true);
+	Book b4("9781472147172", "The Happiness Trap", { "Russ Harris" }, { Genre::PSYCHOLOGY }, true);
+	Book b5("9781572247055", "ACT Made Simple", { "Russ Harris" }, { Genre::PSYCHOLOGY }, true);
+	Book b6("9780140446173", "Human, All Too Human", { "Friedrich Nietzsche" }, { Genre::PHILOSOPHY }, true);
 	
-	std::set<Book> bookSet = { b1, b2, b3, b4 };
+	std::set<Book> bookSet = { b1, b2, b3, b4, b5, b6 };
 	Library lib(bookSet);
 
-	Book res = lib.getBook("978-1-84413-239-3");
-	std::cout << res << std::endl;
+	std::set<Book> resSet = lib.searchTitle("man");
+	for (Book b : resSet) {
+		std::cout << b << std::endl;
+	}
 
 	lib.clear();
 
