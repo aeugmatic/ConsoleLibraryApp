@@ -20,6 +20,13 @@ int main() {
 	for (Book b : resSet) {
 		std::cout << b << std::endl;
 	}
+	std::cout << std::endl;
+
+	resSet = lib.searchAuthors({"russ harris", "polya", "Plato"});
+	for (Book b : resSet) {
+		std::cout << b << std::endl;
+	}
+	std::cout << std::endl;
 
 	lib.clear();
 

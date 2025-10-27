@@ -130,7 +130,7 @@ Book Library::getBook(std::string isbn) const {
 }
 
 std::set<Book> Library::searchTitle(std::string text) const {
-	SQLite::Statement query(this->bookDb, "SELECT * FROM books WHERE title LIKE '%" + text + "%'");
+	SQLite::Statement query(this->bookDb, "SELECT * FROM books WHERE title LIKE '%" + text + "%';");
 
 	std::set<Book> result;
 	while (query.executeStep()) {
@@ -142,11 +142,25 @@ std::set<Book> Library::searchTitle(std::string text) const {
 }
 
 std::set<Book> Library::searchAuthors(std::set<std::string> authors) const {
-	std::string queryStr = "SELECT * FROM books WHERE ";
-	SQLite::Statement query(this->bookDb, queryStr);
+	std::string queryStr = "SELECT * FROM books WHERE authors LIKE ";
+	
+	// Build query string
+	std::set<std::string>::iterator iter;
+	for (iter = authors.begin(); iter != authors.end(); iter++) {
+		queryStr += "'%" + (*iter) + "%' OR authors LIKE ";
+	}
+	queryStr = queryStr.substr(0, queryStr.size() - 17) + ";"; // Refactor magic number (17 = no. of chars to remove from final item)
 
-	std::set<Book> s;
-	return s;
+	//std::cout << queryStr << std::endl;
+
+	SQLite::Statement query(this->bookDb, queryStr);
+	std::set<Book> result;
+	while (query.executeStep()) {
+		Book b = rowToBook(query);
+		result.insert(b);
+	}
+
+	return result;
 }
 
 std::set<Book> Library::searchGenres(std::set<Genre> genres) const {
