@@ -16,23 +16,11 @@ int main() {
 	std::set<Book> bookSet = { b1, b2, b3, b4, b5, b6 };
 	Library lib(bookSet);
 
-	std::set<Book> resSet = lib.searchTitle("man");
-	//for (Book b : resSet) {
-	//	std::cout << b << std::endl;
-	//}
-	//std::cout << std::endl;
+	Book newB = b1;
+	newB.setTitle("How to SOLVE It");
+	lib.updateBook(b1.getIsbn(), newB);
 
-	//resSet = lib.searchAuthors({"russ harris", "polya", "Plato"});
-	//for (Book b : resSet) {
-	//	std::cout << b << std::endl;
-	//}
-	//std::cout << std::endl;
-
-	resSet = lib.searchGenres({Genre::PHILOSOPHY});
-	for (Book b : resSet) {
-		std::cout << b << std::endl;
-	}
-	std::cout << std::endl;
+	std::cout << lib.getBook(newB.getIsbn()) << std::endl;
 
 	lib.clear();
 

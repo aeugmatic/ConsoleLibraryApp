@@ -141,6 +141,8 @@ std::set<Book> Library::searchTitle(std::string text) const {
 	return result;
 }
 
+// --> FIX: figure out how to implement the LIKE..OR query generation in a separate method
+
 std::set<Book> Library::searchAuthors(std::set<std::string> authors) const {
 	std::string queryStr = "SELECT * FROM books WHERE authors LIKE ";
 	
@@ -187,8 +189,18 @@ std::set<Book> Library::searchGenres(std::set<Genre> genres) const {
 
 // Update
 Book Library::updateBook(std::string isbn, Book newBook) {
-	std::string a, b;
-	return Book(a, b, {}, {}, true);
+	std::string query = "UPDATE books SET "
+		"isbn = '" + newBook.getIsbn() + "', "
+		"title = '" + newBook.getTitle() + "', "
+		"authors = '" + newBook.authorsToString() + "', "
+		"genres = '" + newBook.genresToString() + "', "
+		"available = " + ((newBook.isAvailable())? "1" : "0")
+		+ " WHERE isbn = '" + isbn + "';";
+
+	std::cout << query << std::endl;
+	this->bookDb.exec(query);
+	
+	return newBook;
 }
 
 // Delete
