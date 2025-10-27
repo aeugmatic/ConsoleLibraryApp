@@ -17,12 +17,18 @@ int main() {
 	Library lib(bookSet);
 
 	std::set<Book> resSet = lib.searchTitle("man");
-	for (Book b : resSet) {
-		std::cout << b << std::endl;
-	}
-	std::cout << std::endl;
+	//for (Book b : resSet) {
+	//	std::cout << b << std::endl;
+	//}
+	//std::cout << std::endl;
 
-	resSet = lib.searchAuthors({"russ harris", "polya", "Plato"});
+	//resSet = lib.searchAuthors({"russ harris", "polya", "Plato"});
+	//for (Book b : resSet) {
+	//	std::cout << b << std::endl;
+	//}
+	//std::cout << std::endl;
+
+	resSet = lib.searchGenres({Genre::PHILOSOPHY});
 	for (Book b : resSet) {
 		std::cout << b << std::endl;
 	}

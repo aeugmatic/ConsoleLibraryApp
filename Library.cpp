@@ -164,8 +164,25 @@ std::set<Book> Library::searchAuthors(std::set<std::string> authors) const {
 }
 
 std::set<Book> Library::searchGenres(std::set<Genre> genres) const {
-	std::set<Book> s;
-	return s;
+	std::string queryStr = "SELECT * FROM books WHERE genres LIKE ";
+
+	// Build query string
+	std::set<Genre>::iterator iter;
+	for (iter = genres.begin(); iter != genres.end(); iter++) {
+		queryStr += "'%" + genreToString(*iter) + "%' OR genres LIKE ";
+	}
+	queryStr = queryStr.substr(0, queryStr.size() - 16) + ";"; // Refactor magic number (16 = no. of chars to remove from final item)
+
+	std::cout << queryStr << std::endl;
+
+	SQLite::Statement query(this->bookDb, queryStr);
+	std::set<Book> result;
+	while (query.executeStep()) {
+		Book b = rowToBook(query);
+		result.insert(b);
+	}
+
+	return result;
 }
 
 // Update
