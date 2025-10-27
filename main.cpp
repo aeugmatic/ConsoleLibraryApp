@@ -16,7 +16,7 @@ int main() {
 
 	Library lib(bookSet);
 	
-	Book *res = lib.getBook("978-0-14-012499-6");
+	Book *res = lib.getBook("978-1-84413-239-3");
 	std::cout << (*res) << std::endl;
 
 	delete res;
