@@ -122,21 +122,21 @@ void Library::addBooks(std::set<Book> newBooks) {
 }
 
 // Read
-Book Library::getBook(std::string isbn) {
+Book Library::getBook(std::string isbn) const {
 	SQLite::Statement query(this->bookDb, "SELECT * FROM books WHERE isbn='" + isbn + "';");
 
 	query.executeStep();
 	return rowToBook(query);
 }
 
-std::set<Book> Library::searchTitle(std::string text) {
+std::set<Book> Library::searchTitle(std::string text) const {
 	SQLite::Statement query(this->bookDb, "SELECT * FROM books WHERE title LIKE '%" + text + "%'");
 
 	std::set<Book> s;
 	return s;
 }
 
-std::set<Book> Library::searchAuthors(std::set<std::string> authors) {
+std::set<Book> Library::searchAuthors(std::set<std::string> authors) const {
 	std::string queryStr = "SELECT * FROM books WHERE ";
 	SQLite::Statement query(this->bookDb, queryStr);
 
@@ -144,7 +144,7 @@ std::set<Book> Library::searchAuthors(std::set<std::string> authors) {
 	return s;
 }
 
-std::set<Book> Library::searchGenres(std::set<Genre> genres) {
+std::set<Book> Library::searchGenres(std::set<Genre> genres) const {
 	std::set<Book> s;
 	return s;
 }

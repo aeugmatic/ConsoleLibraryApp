@@ -27,10 +27,10 @@ public:
 	void addBook(Book newBook);
 	void addBooks(std::set<Book> newBooks);
 
-	Book getBook(std::string isbn);
-	std::set<Book> searchTitle(std::string title);
-	std::set<Book> searchAuthors(std::set<std::string> authors);
-	std::set<Book> searchGenres(std::set<Genre> genres);
+	Book getBook(std::string isbn) const;
+	std::set<Book> searchTitle(std::string title) const;
+	std::set<Book> searchAuthors(std::set<std::string> authors) const;
+	std::set<Book> searchGenres(std::set<Genre> genres) const;
 
 	Book updateBook(std::string isbn, Book newBook);
 
