@@ -1,59 +1,51 @@
 #include "Genre.h"
 #include <string>
 
+// TODO:
+// - Create method in Library (or elsewhere) that splits the author string into a set of strings
+// - Create method in Library (or elsewhere) that splits the genre string into a set of genre enum values
+// - Implement these split methods in the getBook method in Library so that it finally works
+
+std::unordered_map<Genre, std::string> genreStrMap = {
+    {Genre::ACTION, "Action"},
+    {Genre::ADVENTURE, "Adventure"},
+    {Genre::BIOGRAPHY, "Biography"},
+    {Genre::CLASSICS, "Classics"},
+    {Genre::CRIME, "Crime"},
+    {Genre::DYSTOPIAN, "Dystopian"},
+    {Genre::FANTASY, "Fantasy"},
+    {Genre::HISTORY, "History"},
+    {Genre::HORROR, "Horror"},
+    {Genre::HUMOUR, "Humour"},
+    {Genre::MYSTERY, "Mystery"},
+    {Genre::NOIR, "Noir"},
+    {Genre::OTHER, "Other"},
+    {Genre::POLITICS, "Politics"},
+    {Genre::PHILOSOPHY, "Philosophy"},
+    {Genre::PSYCHOLOGY, "Psychology"},
+    {Genre::RELIGION, "Religion"},
+    {Genre::ROMANCE, "Romance"},
+    {Genre::SCIENCE, "Science"},
+    {Genre::SCIFI, "Science Fiction"},
+    {Genre::SPORTS, "Sports"},
+    {Genre::SUPERNATURAL, "Supernatural"},
+    {Genre::TALES_MYTHOLOGY, "Tales & Mythology"},
+    {Genre::THRILLER, "Thriller"},
+    {Genre::WAR_MILITARY, "War & Military"}
+};
+
 std::string genreToString(Genre g) {
-	switch (g) {
-	case Genre::ACTION:
-		return "Action";
-	case Genre::ADVENTURE:
-		return "Adventure";
-	case Genre::BIOGRAPHY:
-		return "Biography";
-	case Genre::CLASSICS:
-		return "Classics";
-	case Genre::CRIME:
-		return "Crime";
-	case Genre::DYSTOPIAN:
-		return "Dystopian";
-	case Genre::EROTICA:
-		return "Erotica";
-	case Genre::FANTASY:
-		return "Fantasy";
-	case Genre::HISTORY:
-		return "History";
-	case Genre::HORROR:
-		return "Horror";
-	case Genre::HUMOUR:
-		return "Humour";
-	case Genre::MYSTERY:
-		return "Mystery";
-	case Genre::NOIR:
-		return "Noir";
-	case Genre::PHILOSOPHY:
-		return "Philosophy";
-	case Genre::POLITICS:
-		return "Politics";
-	case Genre::PSYCHOLOGY:
-		return "Psychology";
-	case Genre::RELIGION:
-		return "Religion";
-	case Genre::ROMANCE:
-		return "Romance";
-	case Genre::SCIENCE:
-		return "Science";
-	case Genre::SCIFI:
-		return "Science Fiction";
-	case Genre::SPORTS:
-		return "Sports";
-	case Genre::SUPERNATURAL:
-		return "Supernatural";
-	case Genre::TALES_MYTHOLOGY:
-		return "Tales and Mythology";
-	case Genre::THRILLER:
-		return "Thriller";
-	case Genre::WAR_MILITARY:
-		return "War and Military";
-	default:
-		return "Other";
-	}
+    return genreStrMap[g];
+}
+
+Genre stringToGenre(std::string gStr) {
+    Genre result;
+    
+    std::unordered_map<Genre, std::string>::iterator iter;
+    for (iter = genreStrMap.begin(); iter != genreStrMap.end(); iter++) {
+        Genre g = iter->first;
+        if (genreStrMap[g] == gStr) return g;
+    }
+
+    return Genre::OTHER;
 }

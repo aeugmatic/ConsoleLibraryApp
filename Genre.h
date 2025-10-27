@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <unordered_map>
 
 enum class Genre {
     ACTION,
@@ -16,6 +17,7 @@ enum class Genre {
     HUMOUR,
     MYSTERY,
     NOIR,
+    OTHER,      // Default / fallback value
     POLITICS,
     PHILOSOPHY,
     PSYCHOLOGY,
@@ -31,3 +33,4 @@ enum class Genre {
 };
 
 std::string genreToString(Genre g);
+Genre stringToGenre(std::string);
