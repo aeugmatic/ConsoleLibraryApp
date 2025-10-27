@@ -15,6 +15,12 @@ int main() {
 	std::set<Book> bookSet = { b1, b2, b3, b4 };
 
 	Library lib(bookSet);
+	
+	Book *res = lib.getBook("978-0-14-012499-6");
+	std::cout << (*res) << std::endl;
+
+	delete res;
+
 	lib.clear();
 
 	return 0;

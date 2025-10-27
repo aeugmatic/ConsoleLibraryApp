@@ -75,9 +75,9 @@ std::string Book::authorsToString() const {
 		for (ita = this->authors.begin(); ita != this->authors.end(); ita++) {
 			authorsStr += (*ita) + ",";
 		}
-		//authorsStr.resize(authorsStr.size() - 2);
 	}
 
+	// FIXME: potential errors if authorsStr is ""
 	return authorsStr.substr(0, authorsStr.size() - 1);
 }
 
@@ -88,9 +88,9 @@ std::string Book::genresToString() const {
 		for (itg = this->genres.begin(); itg != this->genres.end(); itg++) {
 			genresStr += genreToString(*itg) + ",";
 		}
-		//genresStr.resize(genresStr.size() - 2);
 	}
 
+	// FIXME: potential errors if genresStr is ""
 	return genresStr.substr(0, genresStr.size() - 1);
 }
 

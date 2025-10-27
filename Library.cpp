@@ -4,6 +4,7 @@
 #include <set>
 #include <sqlite3.h>
 #include <SQLiteCpp/SQLiteCpp.h>
+#include <sstream>
 
 // TEMP
 #include <iostream>
@@ -56,9 +57,38 @@ std::string Library::createInsertQuery(Book &book) const {
 		"'" + book.genresToString() + "', "
 		+ ((book.isAvailable())? "1" : "0") + ");";
 
-	std::cout << result << std::endl;
+	//std::cout << result << std::endl;
 
 	return result;
+}
+
+// PRIVATE: convert author string into a set of author strings
+std::set<std::string> Library::authorsFromStr(std::string authorsStr) const {
+	// Split string using streams
+	std::set<std::string> authorsSet;
+	std::string author;
+	std::istringstream ss(authorsStr);
+
+	while (std::getline(ss, author, ',')) {
+		authorsSet.insert(author);
+	}
+
+	return authorsSet;
+}
+
+// PRIVATE: convert genres string into a set of Genre enums
+std::set<Genre> Library::genresFromStr(std::string genresStr) const {
+	// Split string using streams
+	std::set<Genre> genresSet;
+	std::string genre;
+	std::istringstream ss(genresStr);
+
+	while (std::getline(ss, genre, ',')) {
+		Genre g = stringToGenre(genre);
+		genresSet.insert(g);
+	}
+
+	return genresSet;
 }
 
 // Create
@@ -77,32 +107,43 @@ void Library::addBooks(std::set<Book> newBooks) {
 
 // Read
 Book *Library::getBook(std::string isbn) {
-	std::cout << "SELECT * FROM books WHERE isbn='" + isbn + "';" << std::endl;
-	SQLite::Statement query(this->bookDb, "SELECT * FROM books WHERE isbn=\"" + isbn + "\";");
-	
-	std::string resIsbn = query.getColumn(0).getString();
+	SQLite::Statement query(this->bookDb, "SELECT * FROM books WHERE isbn='" + isbn + "';");
+
+	query.executeStep();
+	std::string resIsbn = query.getColumn(0).getText();
 	std::string resTitle = query.getColumn(1).getString();
 	std::set<std::string> resAuthors;	// <- FINISH
 	std::set<Genre> resGenre;			// <- FINISH
-	bool resAvailable = false;			// <- FINISH
+	bool resAvailable = query.getColumn(4).getInt();
 
 	return new Book(
 		resIsbn,
 		resTitle,
-		resAuthors,
-		resGenre,
+		{"c"},
+		{Genre::ACTION},
 		resAvailable
 	);
+
+	//return new Book(
+	//	resIsbn,
+	//	resTitle,
+	//	resAuthors,
+	//	resGenre,
+	//	resAvailable
+	//);
 }
 
 std::set<Book> Library::searchTitle(std::string title) {
-	SQLite::Statement query(this->bookDb, "SELECT * FROM books WHERE title=\"" + title + "\"");
+	SQLite::Statement query(this->bookDb, "SELECT * FROM books WHERE title='" + title + "'");
 
 	std::set<Book> s;
 	return s;
 }
 
 std::set<Book> Library::searchAuthors(std::set<std::string> authors) {
+	std::string queryStr = "SELECT * FROM books WHERE ";
+	SQLite::Statement query(this->bookDb, queryStr);
+
 	std::set<Book> s;
 	return s;
 }
