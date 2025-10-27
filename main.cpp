@@ -15,13 +15,6 @@ int main() {
 	
 	std::set<Book> bookSet = { b1, b2, b3, b4, b5, b6 };
 	Library lib(bookSet);
-
-	Book newB = b1;
-	newB.setTitle("How to SOLVE It");
-	lib.updateBook(b1.getIsbn(), newB);
-
-	std::cout << lib.getBook(newB.getIsbn()) << std::endl;
-
 	lib.clear();
 
 	return 0;

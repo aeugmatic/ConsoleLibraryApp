@@ -205,8 +205,12 @@ Book Library::updateBook(std::string isbn, Book newBook) {
 
 // Delete
 Book Library::removeBook(std::string isbn) {
-	std::string a, b;
-	return Book(a, b, {}, {}, true);
+	Book result = this->getBook(isbn);
+
+	std::cout << "DELETE FROM books WHERE isbn = '" + isbn + "';" << std::endl;
+	this->bookDb.exec("DELETE FROM books WHERE isbn = '" + isbn + "';");
+
+	return result;
 }
 
 void Library::clear() {
