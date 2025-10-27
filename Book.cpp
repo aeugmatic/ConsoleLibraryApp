@@ -86,8 +86,8 @@ std::string Book::genresToString() const {
 	if (this->genres.size() > 0) {
 		std::set<Genre>::iterator itg;
 		for (itg = this->genres.begin(); itg != this->genres.end(); itg++) {
-			genresStr += genreToString(*itg) + ",";
-		}
+			genresStr += genreToString(*itg) + ","; // Can't have space after comma or breaks
+		}											// FIX: use the proper data types and normalised database rather than just text
 	}
 
 	// FIXME: potential errors if genresStr is ""

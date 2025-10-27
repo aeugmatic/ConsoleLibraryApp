@@ -12,6 +12,7 @@ private:
 
 	// Methods
 	void setupDb();
+	Book rowToBook(SQLite::Statement &query) const;
 	std::string createInsertQuery(Book &book) const;
 	std::set<std::string> authorsFromStr(std::string authorsStr) const;
 	std::set<Genre> genresFromStr(std::string genresStr) const;
@@ -26,7 +27,7 @@ public:
 	void addBook(Book newBook);
 	void addBooks(std::set<Book> newBooks);
 
-	Book *getBook(std::string isbn);
+	Book getBook(std::string isbn);
 	std::set<Book> searchTitle(std::string title);
 	std::set<Book> searchAuthors(std::set<std::string> authors);
 	std::set<Book> searchGenres(std::set<Genre> genres);

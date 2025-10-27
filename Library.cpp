@@ -46,6 +46,22 @@ void Library::setupDb() {
 	);
 }
 
+Book Library::rowToBook(SQLite::Statement &query) const {
+	std::string resIsbn = query.getColumn(0).getString();
+	std::string resTitle = query.getColumn(1).getString();
+	std::set<std::string> resAuthors = authorsFromStr(query.getColumn(2).getString());
+	std::set<Genre> resGenre = genresFromStr(query.getColumn(3).getString());
+	bool resAvailable = query.getColumn(4).getInt();
+
+	return Book(
+		resIsbn,
+		resTitle,
+		resAuthors,
+		resGenre,
+		resAvailable
+	);
+}
+
 // PRIVATE: create insert query for a book
 std::string Library::createInsertQuery(Book &book) const {
 	// Add "OR IGNORE" to avoid issues due to primary key uniqueness violation
@@ -57,7 +73,7 @@ std::string Library::createInsertQuery(Book &book) const {
 		"'" + book.genresToString() + "', "
 		+ ((book.isAvailable())? "1" : "0") + ");";
 
-	//std::cout << result << std::endl;
+	std::cout << result << std::endl;
 
 	return result;
 }
@@ -106,27 +122,15 @@ void Library::addBooks(std::set<Book> newBooks) {
 }
 
 // Read
-Book *Library::getBook(std::string isbn) {
+Book Library::getBook(std::string isbn) {
 	SQLite::Statement query(this->bookDb, "SELECT * FROM books WHERE isbn='" + isbn + "';");
 
 	query.executeStep();
-	std::string resIsbn = query.getColumn(0).getString();
-	std::string resTitle = query.getColumn(1).getString();
-	std::set<std::string> resAuthors = authorsFromStr(query.getColumn(2).getString());
-	std::set<Genre> resGenre = genresFromStr(query.getColumn(3).getString());
-	bool resAvailable = query.getColumn(4).getInt();
-
-	return new Book(
-		resIsbn,
-		resTitle,
-		resAuthors,
-		resGenre,
-		resAvailable
-	);
+	return rowToBook(query);
 }
 
-std::set<Book> Library::searchTitle(std::string title) {
-	SQLite::Statement query(this->bookDb, "SELECT * FROM books WHERE title='" + title + "'");
+std::set<Book> Library::searchTitle(std::string text) {
+	SQLite::Statement query(this->bookDb, "SELECT * FROM books WHERE title LIKE '%" + text + "%'");
 
 	std::set<Book> s;
 	return s;

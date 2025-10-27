@@ -1,9 +1,8 @@
+#include <SQLiteCpp/SQLiteCpp.h>
 #include <iostream>
+#include <set>
 #include "Library.h"
 #include "Book.h"
-#include <sqlite3.h>
-#include <SQLiteCpp/SQLiteCpp.h>
-#include <set>
 #include "Genre.h"
 
 int main() {
@@ -13,13 +12,10 @@ int main() {
 	Book b4("978-1-4721-4717-2", "The Happiness Trap", { "Russ Harris" }, { Genre::PSYCHOLOGY }, true);
 	
 	std::set<Book> bookSet = { b1, b2, b3, b4 };
-
 	Library lib(bookSet);
-	
-	Book *res = lib.getBook("978-1-84413-239-3");
-	std::cout << (*res) << std::endl;
 
-	delete res;
+	Book res = lib.getBook("978-1-84413-239-3");
+	std::cout << res << std::endl;
 
 	lib.clear();
 
